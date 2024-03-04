@@ -6,7 +6,7 @@ const secret_key = "pingu";
 
 const checkAuth = async(req,res,next)=>{
     // get the token from the stored cookies
-    const token  = req.cookies;
+    const {token}  = req.cookies;
     // if token is not present
     if(!token)
     {

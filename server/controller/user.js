@@ -1,7 +1,6 @@
 const User = require("../models/user.js");
 const bcrypt = require("bcrypt");
-const  sendCookie  = require("../utils/features.js");
-const { ErrorHandler } = require("../middleware/error.js");
+const  sendCookie  = require("../utils/cookie.js");
 
 
 const login = async (req, res, next) => {
@@ -18,7 +17,7 @@ const login = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch)
-      return next(new ErrorHandler("Invalid Email or Password", 400));
+      return res.status(400).json({success: false, message: "Invalid Email or Password"});
 
     sendCookie(user, res, `Welcome back, ${user.username}`, 200);
   } catch (error) {
@@ -74,8 +73,8 @@ const getInfoById = (req,res) =>{
     if (!data) {
       res.status(404).send({ message: "Not found user with id" + id });
     } else {
-      const { _id, name, email } = data;
-      res.status(200).json({ success: true, user: { _id, name, email } });
+      const { _id, username, email } = data;
+      res.status(200).json({ success: true, user: { _id, username, email } });
     }
   })
   .catch(err => {

@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const userRouter = require("./routes/user");
 const cookieParser = require("cookie-parser");
-
+const reviewRouter = require("./routes/review");
+const pgRouter = require("./routes/pg");
+const collegeRouter = require("./routes/college");
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -21,7 +23,6 @@ app.listen(8000,()=>{
 })
 
 app.use("/user", userRouter);
-
-app.use("/", (req,res)=>{
-    res.send("Server is running");
-});
+app.use("/review", reviewRouter);
+app.use("/pg",pgRouter);
+app.use("/college",collegeRouter);

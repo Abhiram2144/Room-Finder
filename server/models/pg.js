@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const pgSchema = new mongoose.Schema({
-  collegeName: {
-    type: String,
+  collegeId: {
+    type : mongoose.Schema.Types.ObjectId,
+    ref: 'College',
     required: true
   },
   pgName: {
@@ -25,8 +26,9 @@ const pgSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  city: {
-    type: String,
+  cityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'City',
     required: true
   },
   images: {
