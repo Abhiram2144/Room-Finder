@@ -4,7 +4,7 @@ const { getColleges, getCollegeById, createCollege, deleteCollege, updateCollege
 
 const router = express.Router();
 
-router.get("/colleges",getColleges );
+router.get("/all",getColleges );
 router.get("/college/:collegeid",getCollegeById);
 
 router.post("/new",checkAuth, createCollege);

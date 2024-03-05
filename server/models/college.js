@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const collegeSchema = new mongoose.Schema({
-  cityId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'City',
+  cityName: {
+    type: String,
     required: true
   },
   collegeName: {
