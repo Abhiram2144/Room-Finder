@@ -2,7 +2,7 @@ const PG = require('../models/pg');
 
 const createPg = async(req,res)=>{
 
-    const {pgName,address,contact,roomsVacant,rent,cityId,images,description,collegeId} = req.body;
+    const {pgName,address,contact,roomsVacant,rent,cityName,images,description,collegeId} = req.body;
     
     try{
 
@@ -16,7 +16,7 @@ const createPg = async(req,res)=>{
             contact: contact,
             roomsVacant: roomsVacant,
             rent: rent,
-            cityId: cityId,
+            cityName: cityName,
             images: images,
             description: description,
             collegeId: collegeId
@@ -26,19 +26,34 @@ const createPg = async(req,res)=>{
         res.send({pg:savedPg, message: "New PG successfully added!!" },200);
     }
     catch(err){
-        res.json({message:err});
+        res.status(400).json({message:err});
     }
 }
 
 const getPgs = async(req,res)=>{
     try{
-        const pgs = await PG.find({include: [{model: College, as: 'college'}], include: [{model: City, as: 'city'}] });
-        res.send({pgs:pgs},200);
+        const pgs = await PG.find({});
+        res.status(200).send({pgs:pgs, message:"Fetched "});
     }
     catch(err){
-        res.json({message:err});
+        res.status(400).json({message:err});
     }
 }
+
+// const getPgs = async(req,res)=>{
+//     try{
+//         const pgs = await PG.find({}).populate('collegeId').exec((err,pgs)=>{
+//             if(err){
+//                 res.status(400).json({message:err});
+//             }
+//             res.status(200).send({pgs:pgs, message:"Fetched "});
+//         })      
+//         console.log(pgs);
+//     }catch(err)
+//     {
+//         res.status(400).json({message:err});
+//     }
+// }
 
 const getPgById = async(req,res)=>{
     const pgid = req.params.pgid;
@@ -61,6 +76,7 @@ const deletePg = async(req,res)=>{
         res.json({message:err});
     }
 }
+
 
 const updatePg = async(req,res)=>{
     const pgid = req.params.pgid;

@@ -26,9 +26,8 @@ const pgSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  cityId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'City',
+  cityName: {
+    type: String,
     required: true
   },
   images: {
@@ -37,6 +36,10 @@ const pgSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true
+  },
+  reviews : {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Review'
   },
   date: {
     type: Date,
