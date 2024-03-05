@@ -1,4 +1,5 @@
 const Review = require('../models/review');
+const Pg = require('../models/pg');
 
 const createReview = async(req,res)=>{
     const uid = req.params.uid;
@@ -10,9 +11,12 @@ const createReview = async(req,res)=>{
         reviewDescription:reviewDescription,
         userId:uid
     });
+
     try{
         const savedReview = await review.save();
-        res.send({review:savedReview,},200);
+        const pg = await Pg.findOneAndUpdate({_id:pgid},{ $push: { reviews: savedReview._id } });  //add the id of the new review to
+
+        res.status(200).send({review:savedReview,});
     }
     catch(err){
         res.json({message:err});
