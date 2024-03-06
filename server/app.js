@@ -22,7 +22,7 @@ app.listen(8000,()=>{
     );
 })
 
-app.use("/user", userRouter);
-app.use("/review", reviewRouter);
-app.use("/pg",pgRouter);
-app.use("/college",collegeRouter);
+app.use("api/v1/user", userRouter);
+app.use("api/v1/review", reviewRouter);
+app.use("api/v1/pg",pgRouter);
+app.use("api/v1/college",collegeRouter);
